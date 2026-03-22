@@ -63,6 +63,12 @@ const renderBoard = () => {
             boardElement.appendChild(squareElement);
         });
     });
+
+    if (playerRole === "b") {
+        boardElement.classList.add("flipped");
+    }else{
+        boardElement.classList.remove("flipped");
+    }
 };
 
 const handleMove = (source, target) => {
@@ -71,6 +77,8 @@ const handleMove = (source, target) => {
         to: `${String.fromCharCode(97 + target.col)}${8 - target.row}`,
         promotion: "q",
     };
+
+    socket.emit("move", move);
 };
 
 const getPieceUnicode = (piece) => {
